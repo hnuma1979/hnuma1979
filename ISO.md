@@ -66,6 +66,8 @@
 |http://ftp.jaist.ac.jp/pub/Linux/CentOS-vault/7.6.1810/isos/x86_64/CentOS-7-x86_64-DVD-1810.iso|
 |http://ftp.jaist.ac.jp/pub/Linux/CentOS-vault/7.7.1908/isos/x86_64/CentOS-7-x86_64-DVD-1908.iso|
 |http://ftp.jaist.ac.jp/pub/Linux/CentOS-vault/7.8.2003/isos/x86_64/CentOS-7-x86_64-DVD-2003.iso|
+|http://ftp.nara.wide.ad.jp/pub/Linux/centos/7.9.2009/isos/x86_64/CentOS-7-x86_64-DVD-2009.iso|
+* 7.9 はDL可能な場所が限られる
 
 # Centos 8.x
 |url|
