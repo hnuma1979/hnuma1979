@@ -38,3 +38,6 @@
     * [CentOs 6.9-x86_64 DISC 1](http://ftp.jaist.ac.jp/pub/Linux/CentOS-vault/6.9/isos/x86_64/CentOS-6.9-x86_64-bin-DVD-1of2.iso)
     * [CentOs 6.9-x86_64 DISC 2](http://ftp.jaist.ac.jp/pub/Linux/CentOS-vault/6.9/isos/x86_64/CentOS-6.9-x86_64-bin-DVD-2of2.iso)
 
+* CentOs 6.10-x86_64
+    * [CentOs 6.10-x86_64 DISC 1](http://ftp.jaist.ac.jp/pub/Linux/CentOS-vault/6.10/isos/x86_64/CentOS-6.10-x86_64-bin-DVD1.iso)
+    * [CentOs 6.10-x86_64 DISC 2](http://ftp.jaist.ac.jp/pub/Linux/CentOS-vault/6.10/isos/x86_64/CentOS-6.10-x86_64-bin-DVD2.iso)
