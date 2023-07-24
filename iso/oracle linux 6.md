@@ -1,0 +1,2 @@
+* [Oracle Linux 6.9](https://yum.oracle.com/ISOS/OracleLinux/OL6/u9/x86_64/OracleLinux-R6-U9-Server-x86_64-dvd.iso)
+* [Oracle Linux 6.8](https://yum.oracle.com/ISOS/OracleLinux/OL6/u8/x86_64/OracleLinux-R6-U8-Server-x86_64-dvd.iso)
