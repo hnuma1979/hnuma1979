@@ -1,0 +1,5 @@
+* [Oracle Linux 7.9](https://yum.oracle.com/ISOS/OracleLinux/OL7/u9/x86_64/OracleLinux-R7-U9-Server-x86_64-dvd.iso)
+* [Oracle Linux 7.8](https://yum.oracle.com/ISOS/OracleLinux/OL7/u8/x86_64/OracleLinux-R7-U8-Server-x86_64-dvd.iso)
+* [Oracle Linux 7.7](https://yum.oracle.com/ISOS/OracleLinux/OL7/u7/x86_64/OracleLinux-R7-U7-Server-x86_64-dvd.iso)
+* [Oracle Linux 7.6](https://yum.oracle.com/ISOS/OracleLinux/OL7/u6/x86_64/OracleLinux-R7-U6-Server-x86_64-dvd.iso)
+* [Oracle Linux 7.5](https://yum.oracle.com/ISOS/OracleLinux/OL7/u5/x86_64/OracleLinux-R7-U5-Server-x86_64-dvd.iso)
