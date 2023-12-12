@@ -1,3 +1,6 @@
+* [ArchLinux-2023.12.01-x86_64](https://archive.archlinux.org/iso/2023.12.01/archlinux-2023.12.01-x86_64.iso)
+* [ArchLinux-2023.11.01-x86_64](https://archive.archlinux.org/iso/2023.11.01/archlinux-2023.11.01-x86_64.iso)
+* [ArchLinux-2023.10.14-x86_64](https://archive.archlinux.org/iso/2023.10.14/archlinux-2023.10.14-x86_64.iso)
 * [ArchLinux-2023.09.01-x86_64](https://archive.archlinux.org/iso/2023.09.01/archlinux-2023.09.01-x86_64.iso)
 * [ArchLinux-2023.08.01-x86_64](https://archive.archlinux.org/iso/2023.08.01/archlinux-2023.08.01-x86_64.iso)
 * [ArchLinux-2023.07.01-x86_64](https://archive.archlinux.org/iso/2023.07.01/archlinux-2023.07.01-x86_64.iso)
