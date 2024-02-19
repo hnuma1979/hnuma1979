@@ -64,6 +64,10 @@ dnf -y install postfix dovecot opendkim opendkim-tools opendmarc
 # git サーバー機能
 dnf -y install git-all
 
+# docker 機能
+curl -l https://download.docker.com/linux/centos/docker-ce.repo -o /etc/yum.repos.d/docker-ce.repo
+dnf -y install docker-ce
+
 # ファイアウォール機能
 dnf -y install firewalld
 
@@ -315,6 +319,13 @@ __CFG__
 ###################
 # git サーバー機能 #
 ###################
+
+###############
+# docker 機能 #
+###############
+SYSTEMCTL docker
+curl -L https://github.com/docker/compose/releases/download/1.6.2/docker-compose-`uname -s`-`uname -m` \
+  > /usr/local/bin/docker-compose
 
 ##################
 # firewalld 設定 #
