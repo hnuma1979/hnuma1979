@@ -1,9 +1,16 @@
-#!/bin/bash -ue
+#!/bin/bash -u
 
 function SYSTEMCTL {
   systemctl stop   "$@" || echo "ERROR"
   systemctl enable "$@" || echo "ERROR"
   systemctl start  "$@" || echo "ERROR"
+}
+
+function CHANGE_POSTFIX {
+sed -i \
+    -e "/^User/  s/.*/User=postfix/"  \
+    -e "/^Group/ s/.*/Group=postfix/" \
+  "$1"
 }
 
 function BK {
@@ -116,25 +123,25 @@ SYSTEMCTL nginx
 ################
 # POSTFIX 設定 #
 ################
-BK /etc/postfix/main.cf \
-   /etc/postfix/master.cf
+BK /etc/postfix/main.cf /etc/postfix/master.cf
 
 DELETE_ADDCONFIG /etc/postfix/main.cf
 COMMENT_OUT /etc/postfix/main.cf \
    myhostname mydomain mydestination myorigin mynetworks     \
    home_mailbox inet_interfaces smtpd_banner syslog_facility \
-   disable_vrfy_command smtpd_tls_cert_file smtpd_tls_key_file
+   disable_vrfy_command smtpd_tls_cert_file smtpd_tls_key_file \
+   inet_protocols
 
 cat << __POSTFIX_MAIN__ >> /etc/postfix/main.cf
-
 # ADD CONFIG 
 myhostname                        = $MX.$DOMAIN
 mydomain                          = $MX.$DOMAIN
 myorigin                          = \$myhostname
 mydestination                     = \$myhostname, localhost, \$mydomain
-inet_interfaces                   = \$myhostname, localhost
-mynetworks                        = 127.0.0.0/8
-home_mailbox                      = .mail
+inet_interfaces                   = all
+inet_protocols                    = ipv4
+mynetworks                        = 127.0.0.0/32
+home_mailbox                      = .mail/
 smtpd_banner                      = \$myhostname ESMTP
 message_size_limit                = 10485760
 mailbox_size_limit                = 1073741824
@@ -154,15 +161,23 @@ smtpd_tls_session_cache_database  = btree:/var/lib/postfix/smtpd_scache
 smtpd_tls_session_cache_timeout   = 3600s
 smtpd_tls_received_header         = yes
 smtpd_tls_loglevel                = 1
+smtpd_client_restrictions         =
+    reject_non_fqdn_sender
+    reject_unknown_sender_domain
+smtpd_sender_restrictions         =
+    reject_non_fqdn_sender
+    reject_unknown_sender_domain
+# ADD CONFIG （DKIM）
+smtpd_milters = inet:localhost:8891
+non_smtpd_milters = inet:localhost:8891
+milter_default_action = accept
+virtual_alias_maps = hash:/etc/postfix/virtual
 
 __POSTFIX_MAIN__
 
-sed -i \
-    -e "/^#submission/ s/^#//g"  \
-    -e "/^#smtps/      s/^#//g"  \
-    -e "31,32          s/^#/ /g" \
-    -e "38             s/^#/ /g" \
-  /etc/postfix/master.cf
+sed -i -e "/^#smtps/ s/^#//g" -e "31,32 s/^#/ /g" -e "38 s/^#/ /g"/etc/postfix/master.cf
+
+mkdir -pv /etc/skel/.mail/{tmp,cur,new} 
 
 # 検証
 postfix check
@@ -170,8 +185,14 @@ postfix check
 ################
 # DOVECOT 設定 #
 ################
-BK /etc/dovecot/conf.d/10-master.conf
-BK /etc/dovecot/conf.d/10-ssl.conf
+BK /etc/dovecot/conf.d/10-master.conf /etc/dovecot/conf.d/10-ssl.conf /etc/dovecot/conf.d/10-mail.conf \
+   /etc/dovecot/conf.d/10-auth.conf /etc/dovecot/dovecot.conf
+
+DELETE_ADDCONFIG /etc/dovecot/dovecot.conf
+DELETE_ADDCONFIG /etc/dovecot/conf.d/10-mail.conf
+DELETE_ADDCONFIG /etc/dovecot/conf.d/10-auth.conf
+
+COMMENT_OUT /etc/dovecot/conf.d/10-auth.conf auth_mechanisms disable_plaintext_auth
 
 sed -i -E                                \
   -e "19  s/#port.*/port = 0/"           \
@@ -184,12 +205,37 @@ sed -i -E                                \
   -e "101 s/#mode.*/mode = 0666/"        \
   -e "102 s/#user =.*/user = postfix/"   \
   -e "103 s/#group =.*/group = postfix/" \
+  -e "107,109  s/#//g"                   \
   /etc/dovecot/conf.d/10-master.conf
 
 sed -i -E                                                                        \
  -e "/^ssl_cert/ s|.*|ssl_cert = </etc/letsencrypt/live/$DOMAIN/fullchain.pem|"  \
- -e "/^ssl_key/  s|.*|ssl_key = </etc/letsencrypt/live/$DOMAIN/privkey.pem|"     \
+ -e "/^ssl_key/  s|.*|ssl_key  = </etc/letsencrypt/live/$DOMAIN/privkey.pem|"    \
 /etc/dovecot/conf.d/10-ssl.conf
+
+cat << __POSTFIX_MAIN__ >> /etc/dovecot/dovecot.conf
+
+# ADD CONFIG 
+protocols = imap pop3
+
+__POSTFIX_MAIN__
+
+cat << __POSTFIX_MAIN__ >> /etc/dovecot/conf.d/10-mail.conf
+
+# ADD CONFIG 
+mail_location =  maildir:~/.mail
+
+__POSTFIX_MAIN__
+
+cat << __POSTFIX_MAIN__ >> /etc/dovecot/conf.d/10-auth.conf
+
+# ADD CONFIG 
+disable_plaintext_auth  = no
+auth_mechanisms         = plain login
+3F39II1JK7Mwgdlwq0BU    = %n
+__POSTFIX_MAIN__
+
+
 
 # 検証
 dovecot -n
@@ -197,11 +243,10 @@ dovecot -n
 #############
 # DKIM 設定 #
 #############
-BK /etc/opendkim.conf
+BK /etc/opendkim.conf /usr/lib/systemd/system/opendkim.service
 
 DELETE_ADDCONFIG  /etc/opendkim.conf
-COMMENT_OUT       /etc/opendkim.conf  \
-  Mode UserID KeyFile Domain
+COMMENT_OUT       /etc/opendkim.conf Mode UserID KeyFile Domain
 
 cat << __CONF__ >> /etc/opendkim.conf
 # ADD CONFIG 
@@ -212,32 +257,19 @@ KeyFile   /etc/opendkim/keys/$MX.private
 
 __CONF__
 
-DIFF /etc/opendkim.conf
-
 opendkim-genkey -D /etc/opendkim/keys -b 2048 -d $DOMAIN -s $MX
-hown postfix:postfix  /*/opendkim* -Rv
 
-cat << __POSTFIX_MAIN__ >> /etc/postfix/main.cf
+chown postfix:postfix  /*/opendkim* -Rv
+chown 0:0 /sbin/opendkim* -v
 
-# ADD CONFIG （DKIM）
-smtpd_milters = inet:localhost:8891
-non_smtpd_milters = inet:localhost:8891
-milter_default_action = accept
-
-__POSTFIX_MAIN__
-
-BK /usr/lib/systemd/system/opendkim.service
-sed -i \
-    -e "/^User/  s/.*/User=postfix/"  \
-    -e "/^Group/ s/.*/Group=postfix/" \
-  /usr/lib/systemd/system/opendkim.service
+CHANGE_POSTFIX /usr/lib/systemd/system/opendkim.service
 
 postfix check
 
 ##############
 # DMARK 設定 #
 ##############
-BK /etc/opendmarc.conf
+BK /etc/opendmarc.conf /usr/lib/systemd/system/opendmarc.service
 
 cat << __POSTFIX_MAIN__ >> /etc/opendmarc.conf
 
@@ -253,14 +285,10 @@ RequiredHeaders             true
 __POSTFIX_MAIN__
 
 touch  /etc/opendmarc/ignore.hosts
-chown postfix:postfix  /*/opendmarc* -Rv
+chown postfix:postfix  /*/opendmarc* -Rv 
+chown 0:0 /sbin/opendmarc* -v
 
-
-BK /usr/lib/systemd/system/opendmarc.service
-sed -i \
-    -e "/^User/  s/.*/User=postfix/"  \
-    -e "/^Group/ s/.*/Group=postfix/" \
-  /usr/lib/systemd/system/opendmarc.service
+CHANGE_POSTFIX /usr/lib/systemd/system/opendmarc.service
 
 ######################
 # メールサーバー 設定 #
