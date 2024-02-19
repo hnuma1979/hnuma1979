@@ -95,6 +95,7 @@ server {
     listen       [::]:80;
     server_name  _;
     root         /usr/share/nginx/html;
+    server_tokens off;
 
     # Load configuration files for the default server block.
     include /etc/nginx/default.d/*.conf;
@@ -107,6 +108,7 @@ server {
     listen       [::]:443 ssl http2;
     server_name  _;
     root         /usr/share/nginx/html;
+    server_tokens off;
 
     ssl_certificate      "/etc/letsencrypt/live/$DOMAIN/fullchain.pem";
     ssl_certificate_key  "/etc/letsencrypt/live/$DOMAIN/privkey.pem";
