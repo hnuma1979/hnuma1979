@@ -61,6 +61,12 @@ dnf -y install certbot nginx
 # メールサーバー機能
 dnf -y install postfix dovecot opendkim opendkim-tools opendmarc
 
+# git サーバー機能
+dnf -y install git-all
+
+# ファイアウォール機能
+dnf -y install firewalld
+
 # certbot certonly 
 certbot certonly --manual --server https://acme-v02.api.letsencrypt.org/directory \
   --preferred-challenges dns  -d *.$DOMAIN -d $DOMAIN -m $MAIL --agree-tos
@@ -303,3 +309,25 @@ cat << __CFG__
 DNS : _dmarc.$MX.$dOMAIN
 TXT : v=DMARC1; p=quarantine; adkim=s; aspf=s
 __CFG__
+
+###################
+# git サーバー機能 #
+###################
+
+##################
+# firewalld 設定 #
+##################
+SYSTEMCTL firewalld
+
+# WEB サーバー 機能
+firewall-cmd --add-service=http --permanent
+firewall-cmd --add-service=https --permanent
+
+# メールサーバー 機能
+firewall-cmd --add-service=imaps --permanent
+firewall-cmd --add-service=pop3s --permanent
+firewall-cmd --add-service=smtps --permanent
+firewall-cmd --add-service=smtp  --permanent
+
+# git サーバー機能
+firewall-cmd --add-service=git  --permanent
