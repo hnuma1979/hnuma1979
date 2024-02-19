@@ -1,16 +1,16 @@
 #!/bin/bash -u
 
 function SYSTEMCTL {
-  systemctl stop   "$@" || echo "ERROR"
-  systemctl enable "$@" || echo "ERROR"
-  systemctl start  "$@" || echo "ERROR"
+  systemctl stop   "$@"
+  systemctl enable "$@"
+  systemctl start  "$@"
 }
 
 function CHANGE_POSTFIX {
-sed -i \
-    -e "/^User/  s/.*/User=postfix/"  \
-    -e "/^Group/ s/.*/Group=postfix/" \
-  "$1"
+sed -i  -e "/^User/  s/.*/User=postfix/"  \
+        -e "/^Group/ s/.*/Group=postfix/" \
+    "$1"
+    DIFF "$1"
 }
 
 function BK {
@@ -20,7 +20,7 @@ function BK {
 }
 
 function DELETE_ADDCONFIG {
-  sed -i  -e "/# ADD CONFIG /,/^$/d" "$1"
+  sed -i  -e "/^# ADD CONFIG/,/^$/d" "$1"
 }
 
 function COMMENT_OUT {
@@ -30,8 +30,7 @@ function COMMENT_OUT {
   for WORD; do
     sed -i -e "/^$WORD/ s/^/#/g" "$FILE"
   done
-
-  cat "$FILE"
+  DIFF "$FILE"
 }
 
 function DIFF {
@@ -51,16 +50,15 @@ dnf config-manager --enable crb
 dnf -y upgarade
 
 # 追加インストール
-# bind-utils : dig 等
-# vim      ： EDITOR
-# certbot  ： SSH 証明書
-# nginx    ： HTTP SERVER
-# postfix  ： MAIL SERVER
-# dovecot  ： MAIL SERVER
-# opendkim ： MAIL SERVER
-# opendmarc： MAIL SERVER
 dnf -y install vim bind-utils 
+
+# AZURE CLIENT
 dnf -y install certbot nginx
+
+# WEB サーバー機能
+dnf -y install certbot nginx
+
+# メールサーバー機能
 dnf -y install postfix dovecot opendkim opendkim-tools opendmarc
 
 # certbot certonly 
@@ -85,7 +83,7 @@ error_page 500 502 503 504 /50x.html;
 __ERROR_PAGE__
 
 # 
-cat << __SITE_CONF__ > /etc/nginx/conf.d/default.conf
+cat << __CFG__ > /etc/nginx/conf.d/default.conf
 server {
     listen       80;
     listen       [::]:80;
@@ -114,7 +112,7 @@ server {
     # Load configuration files for the default server block.
     include /etc/nginx/default.d/*.conf;
 }
-__SITE_CONF__
+__CFG__
 
 # nginx 起動設定
 nginx -t
@@ -132,7 +130,7 @@ COMMENT_OUT /etc/postfix/main.cf \
    disable_vrfy_command smtpd_tls_cert_file smtpd_tls_key_file \
    inet_protocols
 
-cat << __POSTFIX_MAIN__ >> /etc/postfix/main.cf
+cat << __CFG__ >> /etc/postfix/main.cf
 # ADD CONFIG 
 myhostname                        = $MX.$DOMAIN
 mydomain                          = $MX.$DOMAIN
@@ -167,13 +165,15 @@ smtpd_client_restrictions         =
 smtpd_sender_restrictions         =
     reject_non_fqdn_sender
     reject_unknown_sender_domain
-# ADD CONFIG （DKIM）
-smtpd_milters = inet:localhost:8891
-non_smtpd_milters = inet:localhost:8891
+# ADD CONFIG （DKIM＆DMARC）
+smtpd_milters =
+        local:/run/opendmarc/opendmarc.sock
+        local:/run/opendmarc/opendmarc.sock
+non_smtpd_milters = $smtpd_milters
 milter_default_action = accept
-virtual_alias_maps = hash:/etc/postfix/virtual
 
-__POSTFIX_MAIN__
+
+__CFG__
 
 sed -i -e "/^#smtps/ s/^#//g" -e "31,32 s/^#/ /g" -e "38 s/^#/ /g"/etc/postfix/master.cf
 
@@ -213,29 +213,27 @@ sed -i -E                                                                       
  -e "/^ssl_key/  s|.*|ssl_key  = </etc/letsencrypt/live/$DOMAIN/privkey.pem|"    \
 /etc/dovecot/conf.d/10-ssl.conf
 
-cat << __POSTFIX_MAIN__ >> /etc/dovecot/dovecot.conf
+cat << __CFG__ >> /etc/dovecot/dovecot.conf
 
 # ADD CONFIG 
 protocols = imap pop3
 
-__POSTFIX_MAIN__
+__CFG__
 
-cat << __POSTFIX_MAIN__ >> /etc/dovecot/conf.d/10-mail.conf
+cat << __CFG__ >> /etc/dovecot/conf.d/10-mail.conf
 
 # ADD CONFIG 
 mail_location =  maildir:~/.mail
 
-__POSTFIX_MAIN__
+__CFG__
 
-cat << __POSTFIX_MAIN__ >> /etc/dovecot/conf.d/10-auth.conf
+cat << __CFG__ >> /etc/dovecot/conf.d/10-auth.conf
 
 # ADD CONFIG 
 disable_plaintext_auth  = no
 auth_mechanisms         = plain login
 3F39II1JK7Mwgdlwq0BU    = %n
-__POSTFIX_MAIN__
-
-
+__CFG__
 
 # 検証
 dovecot -n
@@ -246,16 +244,17 @@ dovecot -n
 BK /etc/opendkim.conf /usr/lib/systemd/system/opendkim.service
 
 DELETE_ADDCONFIG  /etc/opendkim.conf
-COMMENT_OUT       /etc/opendkim.conf Mode UserID KeyFile Domain
+COMMENT_OUT       /etc/opendkim.conf Mode UserID KeyFile Domain Socket
 
-cat << __CONF__ >> /etc/opendkim.conf
+cat << __CFG__ >> /etc/opendkim.conf
 # ADD CONFIG 
 Mode      sv
 UserID    postfix:postfix
 Domain    $DOMAIN
 KeyFile   /etc/opendkim/keys/$MX.private
+Socket    inet:8891@localhost
 
-__CONF__
+__CFG__
 
 opendkim-genkey -D /etc/opendkim/keys -b 2048 -d $DOMAIN -s $MX
 
@@ -271,10 +270,13 @@ postfix check
 ##############
 BK /etc/opendmarc.conf /usr/lib/systemd/system/opendmarc.service
 
-cat << __POSTFIX_MAIN__ >> /etc/opendmarc.conf
+DELETE_ADDCONFIG  /etc/opendmarc.conf
+COMMENT_OUT       /etc/opendmarc.conf UserID
+
+cat << __CFG__ >> /etc/opendmarc.conf
 
 # ADD CONFIG 
-AuthservID                  OpenDMARC
+AuthservID                  $MX.$DOMAIN
 RejectFailures              false
 TrustedAuthservIDs          $MX.$DOMAIN
 UserID                      postfix:postfix
@@ -282,7 +284,7 @@ IgnoreHosts                 /etc/opendmarc/ignore.hosts
 IgnoreAuthenticatedClients  true
 RequiredHeaders             true
 
-__POSTFIX_MAIN__
+__CFG__
 
 touch  /etc/opendmarc/ignore.hosts
 chown postfix:postfix  /*/opendmarc* -Rv 
@@ -297,7 +299,7 @@ CHANGE_POSTFIX /usr/lib/systemd/system/opendmarc.service
 
 SYSTEMCTL postfix dovecot opendkim opendmarc
 
-cat << __ECHO__ 
+cat << __CFG__
 DNS : _dmarc.$MX.$dOMAIN
 TXT : v=DMARC1; p=quarantine; adkim=s; aspf=s
-__EcHO__
+__CFG__
