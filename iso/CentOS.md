@@ -49,25 +49,15 @@ CentOS（セントオーエス）は、**Red Hat Enterprise Linux（RHEL）を�
 Anser by Microsoft 365 Copilot
 
 # ダウンロード
+* [公式](https://www.centos.org/download/)
 
-## official valut
+## アーカイブ ダウンロード
+* [公式（archive）](https://vault.centos.org/)
 
-* [official](https://www.centos.org/download/)
+## dockerhub
+* [dockerhub](https://hub.docker.com/_/centos)
 
-アーカイブ
-* [official-vault](https://vault.centos.org/)
-
-## mirror vault
-アーカイブ
-* [jaist](http://ftp.jaist.ac.jp/pub/Linux/CentOS-vault/)
-* [riken](https://ftp.riken.jp/Linux/centos-vault/)
-
-## mirror stream
-ストリーム
-* [jaist](http://ftp.jaist.ac.jp/pub/Linux/CentOS-stream/)
-* [riken](https://ftp.riken.jp/Linux/centos-stream/)
-
-## mirror
-最新版以外は取得不能
-* [jaist](http://ftp.jaist.ac.jp/pub/Linux/CentOS/)
-* [riken](https://ftp.riken.jp/Linux/centos/)
+# 関連リンク
+* [公式サイト](https://www.centos.org/)
+* [公式ドキュメント](https://docs.centos.org/)
+* [公式GitHub](https://github.com/CentOS)

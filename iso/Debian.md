@@ -54,15 +54,21 @@ Debian Linux（デビアン・リナックス）は、**安定性と自由度の
 
 Debianは「**自由・安定・信頼**」を重視するユーザーにとって理想的なLinuxディストリビューションです。初心者には少し敷居が高いかもしれませんが、学ぶ価値は非常に高いです。
 
+---
+
+Anser by Microsoft 365 Copilot
+
 # ダウンロード
 
-## official valut
-アーカイブ
-* [official](https://cdimage.debian.org/mirror/cdimage/archive/)
+* [公式](https://www.debian.org/distrib/)
 
-## mirror
-最新版以外は取得不能
-* [jaist](http://ftp.jaist.ac.jp/pub/Linux/debian/)
-* [riken](https://ftp.riken.jp/Linux/debian/)
+## ミラーサイト
+* [北陸先端科学技術大学院大学](http://ftp.jaist.ac.jp/pub/Linux/debian/)
 
+## dockerhub
+* [dockerhub](https://hub.docker.com/u/debian)
 
+# 関連リンク
+* [公式サイト](https://www.debian.org/)
+* [公式ドキュメント](https://www.debian.org/doc/)
+* [公式GitHub](https://github.com/debian)

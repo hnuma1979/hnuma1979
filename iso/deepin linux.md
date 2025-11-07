@@ -49,10 +49,23 @@ Deepin Linux（正式名称：**Deepin**）は、中国の**武漢深之度科�
 - 見た目が美しいLinuxを使いたい人
 - Windows/macOSからLinuxに移行したい初心者
 - GUI中心で操作したい人
+
 ---
 
 Anser by Microsoft 365 Copilot
 
 # ダウンロード
+* [公式](https://www.deepin.org/en/download/)
 
-懸念点があるため、記載は控えます。
+## アーカイブ ダウンロード
+* [公式（archive）](https://www.deepin.org/en/download/)
+
+## dockerhub
+* [dockerhub](https://hub.docker.com/r/linuxdeepin/deepin)
+
+# 関連リンク
+* [公式サイト](https://www.deepin.org/)
+* [公式ドキュメント](https://wiki.deepin.org/)
+* [公式GitHub](https://github.com/linuxdeepin)
+
+

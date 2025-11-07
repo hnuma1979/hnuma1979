@@ -52,13 +52,16 @@ Anser by Microsoft 365 Copilot
 
 # ダウンロード
 
-## official valut
-アーカイブ
-* [official](https://dl.rockylinux.org/vault/rocky/)
+* [公式](https://rockylinux.org/download)
 
-## mirror
-最新版以外は取得不能
-* [jaist](http://ftp.jaist.ac.jp/pub/Linux/rocky/)
-* [riken](https://ftp.riken.jp/Linux/rocky/)
+## ミラーサイト
+* [北陸先端科学技術大学院大学](http://ftp.jaist.ac.jp/pub/Linux/rocky/)
 
+## dockerhub
+* [dockerhub](https://hub.docker.com/u/rockylinux)
+
+# 関連リンク
+* [公式サイト](https://rockylinux.org/)
+* [公式ドキュメント](https://docs.rockylinux.org/)
+* [公式GitHub](https://github.com/rocky-linux)
 

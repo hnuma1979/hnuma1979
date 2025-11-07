@@ -59,4 +59,18 @@ MX Linuxは、軽量で安定性の高いLinuxディストリビューション�
 
 Anser by Microsoft 365 Copilot
 
-# ダウンロード  
+# ダウンロード
+
+* [公式](https://mxlinux.org/download-links/)
+
+## ミラーサイト
+* 北陸先端科学技術大学院大学
+
+## dockerhub
+* [dockerhub](https://hub.docker.com/r/lvmxlinux/centos)
+
+# 関連リンク
+* [公式サイト](https://mxlinux.org/)
+* [公式ドキュメント](https://mxlinux.org/manuals/)
+* [公式GitHub](https://github.com/MX-Linux)
+

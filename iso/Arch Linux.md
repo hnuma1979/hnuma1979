@@ -54,14 +54,16 @@ Arch Linux は難易度が高いため、初心者向けに使いやすくした
 Anser by Microsoft 365 Copilot
 
 # ダウンロード
+* [公式](https://archlinux.org/download/)
 
-## official valut
-アーカイブ
-* [official](https://archive.archlinux.org/iso/)
+## アーカイブ ダウンロード
+* [公式（archive）](https://archive.archlinux.org/iso/)
 
-## mirror
-最新版以外は取得不能
-* [jaist](http://ftp.jaist.ac.jp/pub/Linux/ArchLinux/)
-* riken
+## dockerhub
+* [dockerhub](https://hub.docker.com/r/archlinux/archlinux)
 
+# 関連リンク
+* [公式サイト](https://archlinux.org/)
+* [公式ドキュメント](https://wiki.archlinux.org/)
+* [公式GitHub](https://github.com/archlinux)
 

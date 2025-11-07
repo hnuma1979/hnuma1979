@@ -51,13 +51,16 @@ Anser by Microsoft 365 Copilot
 
 # ダウンロード
 
-## official valut
-アーカイブ
-* [official](https://www.gentoo.org/downloads/)
+* [公式](https://www.gentoo.org/downloads/)
 
-## mirror
-最新版以外は取得不能
-* [jaist](http://ftp.jaist.ac.jp/pub/Linux/Gentoo/)
-* [riken](https://ftp.riken.jp/Linux/gentoo/)
+## ミラーサイト
+* [北陸先端科学技術大学院大学](http://ftp.jaist.ac.jp/pub/Linux/Gentoo/)
 
+## dockerhub
+* [dockerhub](https://hub.docker.com/u/gentoo)
+
+# 関連リンク
+* [公式サイト](https://www.gentoo.org/)
+* [公式ドキュメント](https://wiki.gentoo.org/)
+* [公式GitHub](https://github.com/gentoo)
 

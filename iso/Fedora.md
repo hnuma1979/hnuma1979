@@ -48,13 +48,16 @@ Anser by Microsoft 365 Copilot
 
 # ダウンロード
 
-## official valut
-アーカイブ
-* [official](https://archives.fedoraproject.org/pub/archive/)
+* [公式](https://getfedora.org/)
 
-## mirror
-最新版以外は取得不能
-* [jaist](http://ftp.jaist.ac.jp/pub/Linux/Fedora/)
-* [riken](https://ftp.riken.jp/Linux/fedora/)
+## ミラーサイト
+* [北陸先端科学技術大学院大学](http://ftp.jaist.ac.jp/pub/Linux/fedora/)
 
+## dockerhub
+* [dockerhub](https://hub.docker.com/u/fedora)
+
+# 関連リンク
+* [公式サイト](https://getfedora.org/)
+* [公式ドキュメント](https://docs.fedoraproject.org/)
+* [公式GitHub](https://github.com/fedora)
 

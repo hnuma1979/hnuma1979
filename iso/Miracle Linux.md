@@ -52,6 +52,16 @@ Anser by Microsoft 365 Copilot
 
 # ダウンロード
 
-## official valut
-アーカイブ
-* [official](https://repo.dist.miraclelinux.net/miraclelinux/)
+* [公式](https://www.miraclelinux.com/distribution/download)
+
+## ミラーサイト
+* 北陸先端科学技術大学院大学
+
+## dockerhub
+* [dockerhub](https://hub.docker.com/u/miraclelinux)
+
+# 関連リンク
+* [公式サイト](https://www.miraclelinux.com/)
+* [公式ドキュメント](https://miraclelinux-users-wiki.growi.cloud/)
+* [公式GitHub](https://github.com/miraclelinux)
+

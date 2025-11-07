@@ -48,4 +48,18 @@ Linux Mint（リナックス・ミント）は、**使いやすさと安定性�
 
 Anser by Microsoft 365 Copilot
 
-# ダウンロード  
+# ダウンロード
+
+* [公式](https://www.linuxmint.com/download.php)
+
+## ミラーサイト
+* [北陸先端科学技術大学院大学](http://ftp.jaist.ac.jp/pub/Linux/linuxmint/)
+
+## dockerhub
+* [dockerhub](https://hub.docker.com/u/linuxmint)
+
+# 関連リンク
+* [公式サイト](https://www.linuxmint.com/)
+* [公式ドキュメント](https://linuxmint-installation-guide.readthedocs.io/)
+* [公式GitHub](https://github.com/linuxmint)
+

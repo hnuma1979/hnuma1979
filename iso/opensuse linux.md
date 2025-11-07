@@ -47,4 +47,18 @@ OpenSUSEは、**SUSE社が支援するコミュニティ主導のプロジェク
 
 Anser by Microsoft 365 Copilot
 
-# ダウンロード  
+# ダウンロード
+
+* [公式](https://www.opensuse.org/download.html)
+
+## ミラーサイト
+* [北陸先端科学技術大学院大学](http://ftp.jaist.ac.jp/pub/Linux/openSUSE/)
+
+## dockerhub
+* [dockerhub](https://hub.docker.com/u/opensuse)
+
+# 関連リンク
+* [公式サイト](https://www.opensuse.org/)
+* [公式ドキュメント](https://www.opensuse.org/)
+* [公式GitHub](https://github.com/openSUSE)
+

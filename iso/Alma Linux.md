@@ -54,13 +54,15 @@ CentOS が RHEL の「後追い」から「先行開発版」に変わったこ�
 Anser by Microsoft 365 Copilot
 
 # ダウンロード
+* [公式](https://almalinux.org/get-almalinux/)
 
-## official valut
+## アーカイブ ダウンロード
+* [公式（valut）](https://vault.almalinux.org/)
 
-アーカイブ
-* [official](https://vault.almalinux.org/)
+## dockerhub
+* [dockerhub](https://hub.docker.com/r/almalinux/almalinux)
 
-## mirror
-最新版以外は取得不能
-* [jaist](http://ftp.jaist.ac.jp/pub/Linux/almalinux/)
-* [riken](https://ftp.riken.jp/Linux/almalinux/)
+# 関連リンク
+* [公式サイト](https://almalinux.org/)
+* [公式ドキュメント](https://docs.almalinux.org/)
+* [公式GitHub](https://github.com/AlmaLinux)

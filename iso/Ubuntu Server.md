@@ -41,15 +41,16 @@ Anser by Microsoft 365 Copilot
 
 # ダウンロード
 
-## official valut
-* [official](https://releases.ubuntu.com/releases/)
+* [公式](https://ubuntu.com/download/server)
 
-アーカイブ
-* [official](https://old-releases.ubuntu.com/releases/)
+## ミラーサイト
+* [北陸先端科学技術大学院大学](http://ftp.jaist.ac.jp/pub/Linux/ubuntu-releases/)
 
-## mirror
-最新版以外は取得不能
-* [jaist](http://ftp.jaist.ac.jp/pub/Linux/ubuntu-releases/)
-* [riken](https://ftp.riken.jp/Linux/ubuntu-releases/)
+## dockerhub
+* [dockerhub](https://hub.docker.com/u/ubuntu)
 
+# 関連リンク
+* [公式サイト](https://ubuntu.com/server)
+* [公式ドキュメント](https://ubuntu.com/server/docs)
+* [公式GitHub](https://github.com/ubuntu)
 

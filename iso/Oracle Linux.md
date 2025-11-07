@@ -58,10 +58,16 @@ Anser by Microsoft 365 Copilot
 
 # ダウンロード
 
-## official
-* [official](https://yum.oracle.com/)
-    * [10.x](https://yum.oracle.com/oracle-linux-10.html)
-    * [9.x](https://yum.oracle.com/oracle-linux-9.html)
-    * [8.x](https://yum.oracle.com/oracle-linux-8.html)
-    * [7.x](https://yum.oracle.com/oracle-linux-7.html)
-    * [6.x](https://yum.oracle.com/oracle-linux-6.html)
+* [公式](https://www.oracle.com/linux/downloads/)
+
+## ミラーサイト
+* 北陸先端科学技術大学院大学
+
+## dockerhub
+* [dockerhub](https://oracle-base.com/articles/linux/articles-linux)
+
+# 関連リンク
+* [公式サイト](https://www.oracle.com/linux/)
+* [公式ドキュメント](https://docs.oracle.com/en/operating-systems/oracle-linux/)
+* [公式GitHub](https://github.com/oracle)
+
